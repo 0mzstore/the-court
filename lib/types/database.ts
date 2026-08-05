@@ -95,6 +95,60 @@ export interface Match {
   recorded_at: string | null;
 }
 
+export interface Round {
+  id: string;
+  location_id: string;
+  round_number: number;
+  created_at: string;
+}
+
+export interface Payment {
+  id: string;
+  player_id: string;
+  session_id: string | null;
+  amount: number;
+  currency: string;
+  method: string | null;
+  status: "pending" | "paid" | "refunded";
+  paid_at: string | null;
+}
+
+export interface Sponsor {
+  id: string;
+  name: string;
+  logo_url: string | null;
+  tier: "gold" | "silver" | "bronze" | null;
+  website_url: string | null;
+  active: boolean;
+}
+
+export interface Reward {
+  id: string;
+  season_id: string | null;
+  title: string;
+  description: string | null;
+  sponsor_id: string | null;
+  image_url: string | null;
+  awarded_to: string | null;
+  awarded_at: string | null;
+}
+
+export interface Notification {
+  id: string;
+  player_id: string;
+  type: string;
+  title: string;
+  body: string | null;
+  read_at: string | null;
+  created_at: string;
+}
+
+export interface CmsContent {
+  key: string;
+  content: Record<string, unknown>;
+  updated_at: string;
+}
+
 // Minimal Supabase Database type shape so createBrowserClient/createServerClient
 // stay type-safe. Expand as tables are finalized in supabase/migrations.
 export interface Database {
@@ -119,6 +173,12 @@ export interface Database {
         Update: Partial<SessionRegistration>;
       };
       matches: { Row: Match; Insert: Partial<Match>; Update: Partial<Match> };
+      rounds: { Row: Round; Insert: Partial<Round>; Update: Partial<Round> };
+      payments: { Row: Payment; Insert: Partial<Payment>; Update: Partial<Payment> };
+      sponsors: { Row: Sponsor; Insert: Partial<Sponsor>; Update: Partial<Sponsor> };
+      rewards: { Row: Reward; Insert: Partial<Reward>; Update: Partial<Reward> };
+      notifications: { Row: Notification; Insert: Partial<Notification>; Update: Partial<Notification> };
+      cms_content: { Row: CmsContent; Insert: Partial<CmsContent>; Update: Partial<CmsContent> };
     };
   };
 }
