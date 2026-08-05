@@ -50,7 +50,6 @@ export async function registerForSession(sessionId: string, capacity: number) {
   }
 
   revalidatePath(`/sessions/${sessionId}`);
-  return { waitingList: isFull };
 }
 
 /**
